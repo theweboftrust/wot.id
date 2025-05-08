@@ -3,7 +3,7 @@ import { getIdentity } from './api/wotid';
 
 export default function IdentityLookup() {
   const [did, setDid] = useState('did:example:123');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<unknown>(null);
 
   const handleLookup = async () => {
     setResult('loading...');
