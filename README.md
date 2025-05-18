@@ -21,4 +21,7 @@ This is the new, IOTA-native, Move- and Rust-powered wot.id project. It is fully
 
 ---
 
-See `/principles` for core and design principles. See `/docs` for migration and architecture notes.
+## Documentation
+- `/principles/wotid_core_principles.md`: The 10 fundamental principles guiding the wot.id ecosystem, including open technological environment, strict peer-to-peer operation, guaranteed human identity, and decentralized governance.
+- `/principles/wotid_technical_design_principles.md`: The 10 technical design principles that define the implementation approach, covering DAG architecture, data storage strategy, crypto-agility, and interoperability standards.
+- `/docs`: Contains migration guides and architecture documentation.
