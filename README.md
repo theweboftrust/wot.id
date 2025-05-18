@@ -1,6 +1,6 @@
-# My Identity on the Web of Trust
+# Safe Identity on the Web of Trust
 
-Welcome to wot.id, a next-generation digital identity platform that puts you in control. Built on IOTA's advanced distributed ledger technology, wot.id enables secure, private, and fully decentralized identity management without intermediaries or fees.
+wot.id is a digital identity and communication platform that stricly implements the principles of self-sovereign-identity. Built on IOTA's advanced distributed ledger technology, wot.id enables secure, private, and fully decentralized identity management and peer-to-peer interaction. It does so with instantanous speed, maximum reliablitiy and zero fees.
 
 What makes wot.id different:
 
