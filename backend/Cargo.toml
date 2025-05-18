@@ -4,6 +4,20 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+identity_core = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_credential = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_did = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_document = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_iota = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_storage = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_iota_core = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_resolver = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_verification = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_stronghold = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_jose = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_ecdsa_verifier = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_eddsa_verifier = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
+identity_iota_interaction = { git = "https://github.com/iotaledger/identity.rs", branch = "main" }
 axum = "0.8.4"
 serde_json = "1.0.140"
 tokio = { version = "1.45.0", features = ["full"] }
