@@ -84,7 +84,7 @@ const WhyContent = () => (
     <h2 className="text-xl font-semibold mb-4">Why We Built wot.id</h2>
     <div className="space-y-4">
       <p>
-        In today's digital world, our identities are fragmented across countless platforms and services. 
+        In today&apos;s digital world, our identities are fragmented across countless platforms and services. 
         Personal information is often stored in centralized databases vulnerable to breaches, and users have little control over how their data is used.
       </p>
       <p>
@@ -157,7 +157,7 @@ const JoinContent = () => (
     <h2 className="text-xl font-semibold mb-4">Join the Movement</h2>
     <div className="space-y-4">
       <p>
-        Become part of the growing community that's reshaping how digital identity works. Whether you're a user, developer, or organization, there are multiple ways to get involved with wot.id.
+        Become part of the growing community that&apos;s reshaping how digital identity works. Whether you&apos;re a user, developer, or organization, there are multiple ways to get involved with wot.id.
       </p>
       <div className="mb-4">
         <h3 className="font-medium mb-2">For Users</h3>
@@ -165,7 +165,7 @@ const JoinContent = () => (
       </div>
       <div className="mb-4">
         <h3 className="font-medium mb-2">For Developers</h3>
-        <p>Contribute to our open-source codebase, build applications that leverage wot.id's identity framework, or integrate the protocol into existing systems.</p>
+        <p>Contribute to our open-source codebase, build applications that leverage wot.id&apos;s identity framework, or integrate the protocol into existing systems.</p>
       </div>
       <div className="mb-4">
         <h3 className="font-medium mb-2">For Organizations</h3>
