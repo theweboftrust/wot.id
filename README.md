@@ -1,6 +1,6 @@
 # Human Identity on the Web of Trust
 
-wot.id is a digital identity and communication platform that stricly implements the principles of self-sovereign-identity. Built on IOTA's advanced distributed ledger technology, it is open to all digital actors, but enables secure, private, and fully decentralized identity management and peer-to-peer interaction. It does so with instantanous speed, maximum reliablitiy and zero fees.
+wot.id is a digital identity and communication platform that stricly implements the principles of self-sovereign-identity. Built on IOTA's advanced distributed ledger technology, it is open to all digital actors, but enables secure, private, and fully decentralized identity management and peer-to-peer interaction for humans. It does so with instantanous speed, maximum reliablitiy and zero fees.
 
 It is based on the following principles:
 
