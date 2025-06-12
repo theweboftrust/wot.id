@@ -40,3 +40,4 @@ out/
 # Misc
 .DS_Store
 *.pem
+backend/.env

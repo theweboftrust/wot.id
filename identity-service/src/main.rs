@@ -1,104 +1,79 @@
-use axum::{
-    routing::{get, post},
-    Router, Json, extract::State,
-};
-use serde::{Deserialize, Serialize};
+use axum::{routing::{get, post}, Router};
 use std::sync::Arc;
-use dotenv::dotenv;
-use std::env;
-use std::net::SocketAddr;
-use identity_iota::iota::IotaClientExt;
-use identity_iota::iota::IotaDocument;
-use identity_iota::iota::NetworkName;
-use identity_iota::credential::Credential;
-use identity_iota::core::Timestamp;
-use anyhow::Result;
+use tokio::net::TcpListener;
+use tower_http::trace::TraceLayer;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-#[derive(Clone)]
-struct AppState {
-    network: NetworkName,
-    node_url: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct HealthResponse {
-    status: String,
-    identity_version: String,
-    tokio_version: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct CreateDidRequest {
-    // Empty for now, can be extended with optional parameters
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct CreateDidResponse {
-    did: String,
-    document: String,
-}
+mod config;
+mod handlers;
+mod state;
 
 #[tokio::main]
-async fn main() -> Result<()> {
-    // Initialize tracing
+async fn main() -> anyhow::Result<()> {
+    // Initialize tracing (adapted from existing main.rs)
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
-            std::env::var("RUST_LOG").unwrap_or_else(|_| "info".into()),
+            std::env::var("RUST_LOG")
+                .unwrap_or_else(|_| "identity_service=debug,tower_http=debug,info".into()),
         ))
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    // Load environment variables
-    dotenv().ok();
-    
-    // Get configuration from environment
-    let port = env::var("IDENTITY_SERVICE_PORT").unwrap_or_else(|_| "8081".to_string());
-    let node_url = env::var("IOTA_NODE_URL").expect("IOTA_NODE_URL must be set");
-    
-    // Identity service setup - using mainnet for now
-    let network = NetworkName::try_from("iota").unwrap();
-    
-    // Create app state
-    let state = Arc::new(AppState {
-        network,
-        node_url,
-    });
-    
-    // Create router with routes
+    tracing::info!("Starting identity-service...");
+
+    // Load configuration
+    let app_config = match config::AppConfig::load() {
+        Ok(cfg) => cfg,
+        Err(e) => {
+            tracing::error!(error = %e, "Failed to load application configuration.");
+            return Err(e);
+        }
+    };
+    tracing::info!(port = app_config.service_port, iota_node = %app_config.iota_api_endpoint, "Application configuration loaded.");
+
+    // Build application state
+    let shared_state = match state::build_app_state(app_config.clone()).await {
+        Ok(state) => Arc::new(state),
+        Err(e) => {
+            tracing::error!(error = %e, "Failed to build application state.");
+            return Err(e);
+        }
+    };
+    tracing::info!("Application state built successfully.");
+
+    // Define routes
     let app = Router::new()
-        .route("/health", get(health_check))
-        .route("/create-did", post(create_did))
-        .with_state(state);
+        .route("/health", get(handlers::health_check_handler))
+        .route("/api/v1/identity/initiate-challenge", post(handlers::initiate_challenge_handler))
+        .route("/api/v1/identity/verify-signature", post(handlers::verify_signature_handler))
+        .with_state(shared_state)
+        .layer(TraceLayer::new_for_http());
+
+    let addr_str = format!("0.0.0.0:{}", app_config.service_port);
+    tracing::info!("Attempting to bind to TCP listener at: {}", addr_str);
+
+    let listener = match TcpListener::bind(&addr_str).await {
+        Ok(l) => {
+            let local_addr = l.local_addr().expect("Failed to get local address from listener");
+            tracing::info!("Successfully bound TCP listener to {}", local_addr);
+            l
+        }
+        Err(e) => {
+            tracing::error!(address = %addr_str, error = %e, "Failed to bind TCP listener.");
+            return Err(e.into());
+        }
+    };
     
-    // Start server
-    let addr = format!("0.0.0.0:{}", port).parse::<SocketAddr>()?;
-    tracing::info!("Identity service listening on {}", addr);
-    
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await?;
-    
+    let actual_addr = listener.local_addr().expect("Listener has no local address after bind");
+    tracing::info!("Identity service listening on {}", actual_addr);
+
+    axum::serve(listener, app.into_make_service())
+        .await
+        .map_err(|e| {
+            tracing::error!(error = %e, "Axum server error.");
+            anyhow::anyhow!(e)
+        })?;
+
+    tracing::info!("Axum server stopped gracefully.");
     Ok(())
-}
-
-async fn health_check() -> Json<HealthResponse> {
-    Json(HealthResponse {
-        status: "ok".to_string(),
-        identity_version: env!("CARGO_PKG_VERSION").to_string(),
-        tokio_version: "1.43.0".to_string(),
-    })
-}
-
-async fn create_did(
-    State(state): State<Arc<AppState>>,
-    _json: Json<CreateDidRequest>,
-) -> Json<CreateDidResponse> {
-    // This is a stub implementation - in production, this would create an actual DID
-    // For now, we're just returning a placeholder
-    
-    Json(CreateDidResponse {
-        did: "did:iota:example".to_string(),
-        document: "{}".to_string(),
-    })
 }

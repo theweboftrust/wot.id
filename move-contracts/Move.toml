@@ -1,0 +1,14 @@
+[package]
+name = "wot_id"
+version = "0.1.0"
+authors = []
+edition = "2024"
+license = "Apache-2.0"
+
+[dependencies]
+Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "develop" }
+
+[addresses]
+wot_id = "0x0"
+std = "0x1"
+iota = "0x2"
