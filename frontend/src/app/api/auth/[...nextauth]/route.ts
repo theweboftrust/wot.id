@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'; // Import Cre
 import GoogleProvider from 'next-auth/providers/google';
 // import AppleProvider from "next-auth/providers/apple"; // Deferred for now
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   session: {
     strategy: 'jwt', // Using JWT for session management, essential for wot.id's stateless approach
   },
