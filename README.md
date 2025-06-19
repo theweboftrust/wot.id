@@ -9,8 +9,6 @@ For the human actors in the loop, wot.id offers the following fundamental capabi
 *   **Selective Disclosure**: Provides the means to reveal any aspect of their digital existence to anyone, in any format, and with any desired degree of anonymity.
 *   **Single Source of Truth**: Establishes a reliable single source of truth based on a comprehensive and detailed system of trust relationships.
 
-wot.id implements the principles of self-sovereign identity (SSI) in their truest sense, enabling secure, private, and fully decentralized identity management and interaction.
-
 This document provides a high-level overview of the project. For detailed information, please refer to the comprehensive documentation in the [`/docs`](docs/) directory.
 
 ---
