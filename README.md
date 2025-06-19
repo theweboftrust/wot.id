@@ -1,6 +1,6 @@
 # wot.id: Human Identity on the Web of Trust
 
-wot.id is an open peer-to-peer environment where any digitally connected actor – human, machine, hybrid, or otherwise - can manage and exchange assets, communicate, and handle trust with instantaneous speed, maximum security, and minimal cost. Built upon IOTA's advanced distributed ledger technology, any datapoint is permanently available on a directed acyclic graph (the real cloud), but can only be controlled by its owner. Any datapoint will also have a trust level between 0 and 100.000 that will enable participants to establish and manage intricate and complex trust relationshitps.
+wot.id is an open peer-to-peer environment where any digitally connected actor – human, machine, hybrid, or otherwise - can manage and exchange assets, communicate, and handle trust with instantaneous speed, maximum security, and minimal cost. Built upon IOTA's advanced distributed ledger technology, any datapoint is permanently available on a directed acyclic graph (the real cloud), but can only be controlled by its owner. Any datapoint does also have a trust level between 0 and 100 that enables participants to establish and manage intricate and complex trust relationshitps.
 
 For the human actors in the loop, wot.id offers the following fundamental capabilities:
 *   **Clear Human Identification**: Enables individuals to clearly and verifiably identify themselves as human within the digital realm.
